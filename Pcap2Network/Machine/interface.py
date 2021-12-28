@@ -1,3 +1,6 @@
+from ..Lan import Lan
+
+
 class Interface:
     def __init__(self, mac, machine=None, network=None, ipv4=None, name=None):
         self.mac = mac
@@ -5,6 +8,9 @@ class Interface:
         self.machine = machine
         self.network = network
         self.name = name
+
+        if network is None:
+            self.network = Lan(interfaces=[self])
 
     def __repr__(self):
         st = f'{self.name}: MAC={self.mac}'
@@ -15,3 +21,9 @@ class Interface:
         else:
             raise NotImplementedError('No support for more representation')
         return st
+
+    @classmethod
+    def merge_interfaces(cls, interface1, interface2):
+        if interface1.mac != interface2.mac:
+            raise ValueError('Can\'t merge interfaces with different macs')
+        return cls(interface1.mac,)
