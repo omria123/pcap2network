@@ -21,9 +21,8 @@ def scapy_parse_pcap(path: Path):
 def parse_pcap(path: Path, pcap_parser: str = 'scapy') -> List:
     """
     Reads pcap to
-    :param path:
+    :param path: path to pcap
     :param pcap_parser: select a parser for the pcap file
     :return: List of packets
     """
     return PARSERS[pcap_parser](path)
-

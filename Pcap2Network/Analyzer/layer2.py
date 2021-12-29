@@ -24,7 +24,7 @@ def analyze_metadata(analyzer: Analyzer, metadata):
     if 'network' in metadata:
         context['network'] = metadata['network']
     if 'interface' in metadata:
-        metadata['interface']
+        metadata['interface']  # TODO feed interface to analyzer
     return context
 
 
