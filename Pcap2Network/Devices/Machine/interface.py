@@ -24,6 +24,6 @@ class Interface:
 
     @classmethod
     def merge_interfaces(cls, interface1, interface2):
+        # type: (Interface, Interface) -> Interface
         if interface1.mac != interface2.mac:
             raise ValueError('Can\'t merge interfaces with different macs')
-        return cls(interface1.mac,)

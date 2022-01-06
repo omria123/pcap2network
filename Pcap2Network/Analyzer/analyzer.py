@@ -1,32 +1,36 @@
 import typing
+from pathlib import Path
 
+from .sniffingcontext import SniffingContext
+from .PacketAnalyzer import analyze_packet
 from ..PcapParser import parse_pcap
-from .layer2 import layer2_analyze_packet
-from .layer3 import layer3_analyze_packet
-from .layer4 import layer4_analyze_packet
 
 if typing.TYPE_CHECKING:
-    from typing import List
-
+    from typing import List, Union
+    from ..PcapParser.metadata import PcapMetadata
     from ..Database import Database
-    from ..Lan import Lan
-    from ..Machine import Machine
+    from ..Devices.Lan import Lan
+    from ..Devices.Machine import Machine
 
 
 class Analyzer:
-    ANALYZERS = [layer2_analyze_packet, layer3_analyze_packet, layer4_analyze_packet]
-
     def __init__(self, db):
-        self.machines: List[Machine] = []
-        self.networks: List[Lan] = []
-        self.db: Database = db
+        self.machines = []  # type: List[Machine]
+        self.networks = []  # type: List[Lan]
+        self.db = db  # type: Database
 
     def load_pcap(self, pcap_path, pcap_metadata):
+        # type: (Path, PcapMetadata) -> None
         packets = parse_pcap(pcap_path)
-        for analyzer in self.ANALYZERS:
-            for packet in packets:
-                analyzer(self, packet, pcap_metadata)
-        self.sync_db()
+        sniffing_context = SniffingContext.from_metadata(pcap_metadata)
+        for packet in packets:
+            analyze_packet(self, packet, sniffing_context)
+
+    def mac_to_machine(self, mac):
+        # type: (str) -> Union[Machine, None]
+        for machine in self.machines:
+            if mac in [iface.mac for iface in machine.interfaces]:
+                return machine
 
     def sync_db(self):
         pass
