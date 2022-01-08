@@ -1,7 +1,7 @@
 from Pcap2Network.Database import Database
 
 
-class RedisDatabase(Database):
+class MemoryDatabase(Database):
     SCHEME = 'memory'
 
     def __init__(self, address):
