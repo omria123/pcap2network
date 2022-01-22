@@ -1,3 +1,5 @@
+from typing import List, Dict
+
 from ..Lan import Lan
 
 
@@ -27,3 +29,27 @@ class Interface:
         # type: (Interface, Interface) -> Interface
         if interface1.mac != interface2.mac:
             raise ValueError('Can\'t merge interfaces with different macs')
+
+
+class InterfaceCollection:
+    def __init__(self, *interfaces):
+        # type: (*Interface) -> None
+        self.interfaces = {i.mac: i for i in interfaces}  # type: Dict[str, Interface]
+
+    def __getitem__(self, item):
+        # type: (str) -> Interface
+        if item in self.interfaces:
+            return self.interfaces[item]
+
+        raise KeyError(f'Interface with {item} wasn\'t found')
+
+    def __iter__(self):
+        return self.interfaces.__iter__()
+
+    def __contains__(self, item):
+        return item in self.interfaces
+
+    def add_interface(self, iface):
+        if iface.mac not in self.interfaces:
+            self.interfaces[iface.mac] = iface
+        # TODO: ELSE

@@ -31,8 +31,12 @@ def declare_ip_entity(analyzer, mac_addr, ipv4_addr, local=False, context=None):
     :param local: Whether the IP address is from the local lan.
     :param context: The sniffing context - where the packet is from.
     """
-    # TODO: this
-    pass
+    machine = analyzer.mac_to_machine(mac_addr)
+    if local:
+        i = [i for i in machine.interfaces if i.mac == mac_addr
+        machine.interfaces
+        # TODO: this
+        pass
 
 
 def arp_reply(analyzer, packet, context):
