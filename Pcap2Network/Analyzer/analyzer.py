@@ -34,3 +34,14 @@ class Analyzer:
 
     def sync_db(self):
         pass
+
+    def __repr__(self):
+        st = 'Analyzer:'
+        for network in self.networks:
+            st += '\t' + repr(network).replace('\n', '\n\t')
+
+        return st
+
+
+
+

@@ -33,7 +33,7 @@ def declare_ip_entity(analyzer, mac_addr, ipv4_addr, local=False, context=None):
     """
     machine = analyzer.mac_to_machine(mac_addr)
     if local:
-        i = [i for i in machine.interfaces if i.mac == mac_addr
+        i = [i for i in machine.interfaces if i.mac == mac_addr]
         machine.interfaces
         # TODO: this
         pass
@@ -53,7 +53,7 @@ def arp_request(analyzer, packet, context):
 ARP_OPCODES = {1: arp_request, 2: arp_reply}
 
 
-@packet_analyzer('ARP')
+# @packet_analyzer('ARP')
 def arp_analyzer(analyzer, packet, context):
     # type: (Analyzer, Packet, SniffingContext) -> None
     opcode = packet['ARP']['opcode']
@@ -62,7 +62,7 @@ def arp_analyzer(analyzer, packet, context):
     ARP_OPCODES[opcode](analyzer, packet, context)
 
 
-@packet_analyzer('IP')
+# @packet_analyzer('IP')
 def ip_analyzer(analyzer, packet, context):
     # type: (Analyzer, Packet, SniffingContext) -> None
     dst = packet['IP']['dst']

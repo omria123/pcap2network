@@ -7,7 +7,7 @@ if typing.TYPE_CHECKING:
     from ...PcapParser import Packet
 
 
-@packet_analyzer('TCP')
+# @packet_analyzer('TCP')
 def tcp_analyzer(analyzer, packet, context):
     # type: (Analyzer, Packet, SniffingContext) -> None
 
@@ -16,7 +16,7 @@ def tcp_analyzer(analyzer, packet, context):
     return
 
 
-@packet_analyzer('UDP')
+# @packet_analyzer('UDP')
 def udp_analyzer(analyzer, packet, context):
     # type: (Analyzer, Packet, SniffingContext) -> None
 
@@ -25,8 +25,7 @@ def udp_analyzer(analyzer, packet, context):
     return
 
 
-@packet_analyzer('ICMP')
+# @packet_analyzer('ICMP')
 def icmp_analyzer(analyzer, packet, context):
     # type: (Analyzer, Packet, SniffingContext) -> None
     return
-

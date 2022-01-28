@@ -9,9 +9,13 @@ class Machine(object):
         self._sync_interfaces()
 
     def __repr__(self):
-        st = f'Machine {self.os}\n'
-        st += 'Interfaces:\n'
-        st += '\n'.join(repr(i for i in self.interfaces))
+        st = f'Machine:'
+
+        if self.os is None:
+            st += f' {self.os}'
+        st += '\n'
+        for interface in self.interfaces:
+            st += '\t' + repr(interface).replace('\n', '\n\t')
         return st
 
     def add_interface(self, interface):

@@ -15,7 +15,9 @@ class Interface:
             self.network = Lan(interfaces=[self])
 
     def __repr__(self):
-        st = f'{self.name}: MAC={self.mac}'
+        st = f'' if self.name is None else f'{self.name}: '
+        st += 'MAC={self.mac}'
+
         if self.ipv4 is None:
             return st
         if isinstance(self.ipv4, str):

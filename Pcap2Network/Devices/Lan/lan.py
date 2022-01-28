@@ -27,3 +27,10 @@ class Lan:
             return
         # TODO: According to Mac
         return cls(list(set(lan1.interfaces + lan2.interfaces)))
+
+    def __repr__(self):
+        st = 'Network:'
+        for interface in self.interfaces:
+            st += '\t' + repr(interface.machine).replace('\n', '\n\t')
+
+        return st
