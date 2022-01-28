@@ -1,4 +1,4 @@
-from Pcap2Network.Database import Database
+from .database import Database
 
 
 class MemoryDatabase(Database):
