@@ -2,4 +2,7 @@ import os
 import sys
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-sys.path.append(os.path.join(os.path.dirname(__file__), 'helpers'))
+
+
+from tests.helper.fixtures import db
+from tests.helper.fixtures import analyzer

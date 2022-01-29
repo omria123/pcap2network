@@ -8,9 +8,7 @@ if typing.TYPE_CHECKING:
 
 class Lan:
     def __init__(self, interfaces=None):
-        self.interfaces: List[Interface] = interfaces
-        if interfaces is None:
-            self.interfaces = None
+        self.interfaces: List[Interface] = interfaces if interfaces is not None else []
         self._sync_interfaces()
 
     def _sync_interfaces(self):
